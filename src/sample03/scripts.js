@@ -1,9 +1,4 @@
 /**
- * GITHUB 
- */
-const HOST = 'https://amami-harhid.github.io/scratch3LikeJsTrial/web';
-
-/**
  * Sample03
  *  非同期処理と await 
  * 「終わるまで音を鳴らす」をずっと繰り返す

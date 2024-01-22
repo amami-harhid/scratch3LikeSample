@@ -1,6 +1,7 @@
 /**
- * Sample06
- * スプライトを作る
+ * Sample12
+ * スプライト（CAT)を クリックした場所へ移動する
+ * 
  */
 P.preload = async function() {
     this.loadImage(`${HOST}/assets/Jurassic.svg`,'Jurassic');
@@ -12,23 +13,27 @@ P.prepare = async function() {
     P.stage = new P.Stage("stage");
     P.stage.addImage( P.images.Jurassic );
 
-    // スプライトを作る
     P.cat = new P.Sprite("Cat");
+    P.cat.position.x = 0;
+    P.cat.position.y = 0;
     P.cat.addImage( P.images.Cat );
 }
 
-P.setting = async function() {
+const _changeDirection = 1;
 
+P.setting = async function() {
     P.stage.whenFlag(async function() {
-        // 音を登録する
-        this.addSound( P.sounds.Chill, { 'volume' : 100 } );
+        this.addSound( P.sounds.Chill, { 'volume' : 50 } );
     });
     P.stage.whenFlag(async function() {
-        // 「終わるまで音を鳴らす」をずっと繰り返す、スレッドを起動する
-        this.startThread( async function() {
-            for(;;) {
-                await this.startSoundUntilDone();
-            }
-        });
+        for(;;) {
+            await this.startSoundUntilDone();
+        }
+    });
+    P.stage.whenClicked(async function() {
+
+        const x = P.mousePosition.x;
+        const y = P.mousePosition.y;
+        P.cat.moveTo(x,y)
     });
 }

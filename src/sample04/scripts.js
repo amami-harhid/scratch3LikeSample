@@ -1,9 +1,4 @@
 /**
- * GITHUB 
- */
-const HOST = 'https://amami-harhid.github.io/scratch3LikeJsTrial/web';
-
-/**
  * Sample04
  * ステージをクリック（タッチ）したときに音を鳴らす（ずっと繰り返し）
  */

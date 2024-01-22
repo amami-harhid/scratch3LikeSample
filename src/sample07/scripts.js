@@ -1,9 +1,4 @@
 /**
- * GITHUB 
- */
-const HOST = 'https://amami-harhid.github.io/scratch3LikeJsTrial/web';
-
-/**
 * Sample07
 * スプライトを 動かす ( 端に触れたら )
 */

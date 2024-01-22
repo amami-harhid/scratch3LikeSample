@@ -1,9 +1,4 @@
 /**
- * GITHUB 
- */
-const HOST = 'https://amami-harhid.github.io/scratch3LikeJsTrial/web';
-
-/**
  * Sample02
  * 画像をロードして フラグクリック時に ステージに表示する
  */
