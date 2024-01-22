@@ -47,18 +47,18 @@ P.setting = function() {
     // ネコにさわったらスピーチする
     P.cat.whenFlag( async function(){
         this.__waitTouching = false;
-        const words = `なになに？どうしたの？`;
+        const words = `おっと`;
         const properties = {'pitch': 2, 'volume': 100}
         // ずっと繰り返す
         for(;;) {
             // マウスに触ったとき
             if( this.isMouseTouching() ) {
                 // メッセージ(SPEECH)を送って待つ
-                await this.broadcastAndWait('SPEECH', words, properties, 'male');
+                this.broadcastAndWait('SPEAK', words, properties, 'male');
                 
-                // 「送って待つ」を使うことで スピーチが終わるまで次のループに進まないため、
-                // 以下の「マウスタッチしない迄待つ」のコードが不要である。
-                //await P.Utils.waitUntil( this.isNotMouseTouching, P.Env.pace,  this ); 
+                // 「送って待つ」ではないので次のループに進ませないように、
+                // 「マウスタッチしない迄待つ」をする。
+                await P.Utils.waitUntil( this.isNotMouseTouching, P.Env.pace,  this ); 
 
             }
         }
@@ -66,20 +66,15 @@ P.setting = function() {
     
     // ネコをクリックしたらスピーチする
     P.cat.whenClicked(function(){
-        const words = `そこそこ。そこがかゆいの。`;
+        const words = `そこそこ`;
         const properties = {'pitch': 1.7, 'volume': 500}
-        this.broadcast('SPEECH', words, properties, 'female')
+        this.broadcast('SPEAK', words, properties, 'female')
     });
 
     // メッセージ(SPEECH)を受け取ったら スピーチをする
-    P.cat.whenBroadcastReceived('SPEECH', async function(words, properties, gender='male', locale='ja-JP') {
+    P.cat.whenBroadcastReceived('SPEAK', async function(words, properties, gender='male', locale='ja-JP') {
 
-        const _properties = (properties)? properties : {};
-
-        const speech = P.Speech.getInstance();
-        speech.gender = gender;
-        speech.locale = locale;
-        await speech.speakAndWait(words, _properties)
+        this.speech(words, properties);
 
     });
 
