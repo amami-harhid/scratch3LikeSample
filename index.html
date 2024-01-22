@@ -16,8 +16,12 @@ ul li, ol li {
   padding: 0.5em 0;
 }
 li {cursor: pointer;}
-    </style>
-    <script>
+li:hover {
+  color: #ffaaff; 
+  background: #3f3f3f;  
+}
+</style>
+<script>
       $(function() {
         let liArr = $('li');
         liArr.map((_idx,_li)=>{
@@ -32,7 +36,7 @@ li {cursor: pointer;}
         })
       });
 
-    </script>
+</script>
   </head>
   <body>
     <div>Scratch3LikeJs Sample集</div>
@@ -41,8 +45,8 @@ li {cursor: pointer;}
       <li>[sample01] 画像をロード後すぐにステージに表示</li>
       <li>[sample02] 旗クリック時に ステージ時に画像をステージに表示</li>
       <li>[sample03] 「終わるまで音を鳴らす」をずっと繰り返す</li>
-      <li>[sample04] ステージをクリック「終わるまで音を鳴らす」（ずっと繰り返し）</li>
-      <li>[sample05] 二回目クリックで音を止める</li>
+      <li>[sample04] ステージをクリック「終わるまで音を鳴らす」（繰り返し）<br>注意：２回クリックのガードがないのでクリックするたびに音が重なる</li>
+      <li>[sample05] ステージをクリックで「終わるまで音を鳴らす」（繰り返し）<br>二度目のクリックで音を止めるようにガードする</li>
       <li>[sample06] スプライトを作って表示するサンプル</li>
       <li>[sample07] スプライトを 動かす（端に触れたら跳ね返る）</li>
       <li>[sample08] 端に触れたらミャーと鳴く</li>
@@ -52,14 +56,14 @@ li {cursor: pointer;}
       <li>[sample12] クリックした場所へスプライトが移動する</li>
       <li>[sample13] クリックした位置へスプライトが〇秒で移動する</li>
       <li>[sample14] スプライトが マウスポインターを追いかける</li>
-      <li>[sample15] スプライトはステージの端を越えては進めない</li>
+      <li>[sample15] スプライトはステージの端を越えては進めないことを検証</li>
       <li>[sample16] 「左右のみ回転」「回転しない」「自由に回転」</li>
-      <li>[sample17] 十字スプライトを 右側に回転させ、マウスポインターに触れたらクローンを作る</li>
-      <li>[sample18] キーボード入力で左右に動き、弾を発射</li>
+      <li>[sample17] 十字スプライトを 右側に回転させ、マウスポインターに触れたら<br>クローンを作る</li>
+      <li>[sample18] キーボード入力で左右に動き、スペースキーで弾を発射、発射時には発射音を再生する</li>
       <li>[sample19] スプライトの「ふきだし」のサンプル</li>
       <li>[sample20] イベントメッセージで「ふきだし」を出す</li>
-      <li>[sample21] スピーチ機能のサンプル（ネコへタッチ、クリック）</li>
-      <li>[sample22] スピーチ（ネコへタッチ、クリック）、スピーチが終わるまで待つ</li>
+      <li>[sample21] スピーチ機能のサンプル（ネコへタッチ、クリック）<br>メッセージ送信によりスピーチをする</li>
+      <li>[sample22] スピーチ（ネコへタッチ、クリック）、メッセージ送信したらスピーチが終わるまで待つ</li>
     </ul>
   </body>
 </html>
