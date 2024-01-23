@@ -96,7 +96,7 @@ P.setting = async function() {
     P.cross.whenCloned(function(){
         const c = this; // <--- cross instance;
         for(;;) {
-            this.rotationRight(15);
+            this.turnRight(15);
             if(this.isTouchingEdge()){
                 break;
             }
