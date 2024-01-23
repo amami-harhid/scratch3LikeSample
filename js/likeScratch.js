@@ -5770,7 +5770,7 @@ const Backdrops = __webpack_require__(24);
 const Costumes = __webpack_require__(14);
 const Element = __webpack_require__(27);
 const Env = __webpack_require__(4);
-const EventEmitter = __webpack_require__(7).EventEmitter;
+const EventEmitter = __webpack_require__(6).EventEmitter;
 const Importer = __webpack_require__(10);
 const Keyboard = __webpack_require__(28);
 const Looks = __webpack_require__(16);
@@ -5785,7 +5785,7 @@ const Sensing = __webpack_require__(250);
 const Sounds = __webpack_require__(22);
 const Sprite = __webpack_require__(267);
 const Stage = __webpack_require__(272);
-const StageLayering = __webpack_require__(6);
+const StageLayering = __webpack_require__(7);
 const Utils = __webpack_require__(5);
 const Process = class {
 
@@ -16509,40 +16509,6 @@ module.exports = Utils;
 
 /***/ }),
 /* 6 */
-/***/ (function(module, exports) {
-
-class StageLayering {
-    static get BACKGROUND_LAYER () {
-        return 'background';
-    }
-
-    static get VIDEO_LAYER () {
-        return 'video';
-    }
-
-    static get PEN_LAYER () {
-        return 'pen';
-    }
-
-    static get SPRITE_LAYER () {
-        return 'sprite';
-    }
-
-    // Order of layer groups relative to each other,
-    static get LAYER_GROUPS () {
-        return [
-            StageLayering.BACKGROUND_LAYER,
-            StageLayering.VIDEO_LAYER,
-            StageLayering.PEN_LAYER,
-            StageLayering.SPRITE_LAYER
-        ];
-    }
-}
-
-module.exports = StageLayering;
-
-/***/ }),
-/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17046,10 +17012,44 @@ function eventTargetAgnosticAddListener(emitter, name, listener, flags) {
 
 
 /***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+class StageLayering {
+    static get BACKGROUND_LAYER () {
+        return 'background';
+    }
+
+    static get VIDEO_LAYER () {
+        return 'video';
+    }
+
+    static get PEN_LAYER () {
+        return 'pen';
+    }
+
+    static get SPRITE_LAYER () {
+        return 'sprite';
+    }
+
+    // Order of layer groups relative to each other,
+    static get LAYER_GROUPS () {
+        return [
+            StageLayering.BACKGROUND_LAYER,
+            StageLayering.VIDEO_LAYER,
+            StageLayering.PEN_LAYER,
+            StageLayering.SPRITE_LAYER
+        ];
+    }
+}
+
+module.exports = StageLayering;
+
+/***/ }),
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const EventEmitter = __webpack_require__(7);
+const EventEmitter = __webpack_require__(6);
 
 const twgl = __webpack_require__(2);
 
@@ -42406,13 +42406,23 @@ const Rewrite = class {
         return Rewrite._instance;
     }
 
-    exec ( f, me, ...args ) {
+    exec ( f, me, emitterEventId, ...args ) {
+
         const af = this._rewrite( f );
-        //        console.log(af);
         let bindedFunc = af.bind( me );
         // async functionを実行しているので、エラーcatchは try^catch構文では不可能。
         bindedFunc(...args).catch(e=>{ console.error('script=', f.toString()); throw e; });
+
     }
+    execWithEmitter ( f, me, emitterEventId, ...args ) {
+
+        const af = this._rewrite( f , emitterEventId);
+        let bindedFunc = af.bind( me );
+        // async functionを実行しているので、エラーcatchは try^catch構文では不可能。
+        bindedFunc(...args).catch(e=>{ console.error('script=', f.toString()); throw e; });
+
+    }
+
     execThread( f, me, ...args ) {
 //        console.log("execThread(1)", f);
         const af = this._rewrite( f );
@@ -42434,7 +42444,7 @@ const Rewrite = class {
         return {
             RegexLoopDef : /([while|for]\s\([^\)]*?\)\s)({)/g ,
             LoopProtectionIsDone : /_waitRapperRewrited/,
-            LoopProtectionCode : `await P.Utils._waitRapperRewrited(P.Env.pace); \n` ,
+            LoopProtectionCode : `if(_stopper_===true){break;}\n await P.Utils._waitRapperRewrited(P.Env.pace); \n` ,
             JsBeautifyOptions : {
                 indent_size: 2,
                 space_in_empty_paren: false,
@@ -42443,7 +42453,7 @@ const Rewrite = class {
         }
 
     }
-    _rewrite ( f ) {
+    _rewrite ( f, emitterEventId ) {
         let code = f.toString();
         const theVar = this._getEventObjectVarName(code)
         //console.log(theVar)
@@ -42465,7 +42475,18 @@ const Rewrite = class {
             code = code.replace(Rewrite.constant.RegexLoopDef, '$1$2' + Rewrite.constant.LoopProtectionCode);
         }
         code = js_beautify(code, Rewrite.constant.JsBeautifyOptions);
+        // function() {　}　の外側を除去する
         code = this._removeComments(this._removeOuter(code))
+
+        // emitter処理を前後につける
+        if(emitterEventId ) {
+            code = ` const _STOPF_=()=>{_stopper_=true;}\nlet _stopper_=false;this.once('${emitterEventId}',_STOPF_);\n `+ code;
+//            code = ` this.emit('${emitterEventId}');const _STOPF_=()=>{stopper=true;}\nlet stopper=false;this.once('${emitterEventId}',_STOPF_);\n `+ code;
+            code = code + ` this.removeListener('${emitterEventId}',_STOPF_);\n`;                
+            code = js_beautify(code, Rewrite.constant.JsBeautifyOptions);
+//            console.log(code);
+        }
+
         const AsyncFunction = Object.getPrototypeOf(async () => {}).constructor
         //const AsyncFunction = new Function(`return Object.getPrototypeOf(async function(){}).constructor`)();
         let af = null;
@@ -42564,6 +42585,7 @@ module.exports = VolumeEffect;
 
 /* WEBPACK VAR INJECTION */(function(process) {const Canvas = __webpack_require__(15);
 const Env = __webpack_require__(4);
+const EventEmitter = __webpack_require__(6).EventEmitter;
 const Looks = __webpack_require__(16);
 const MathUtils = __webpack_require__(17);
 const Process = __webpack_require__(1);
@@ -42571,8 +42593,9 @@ const Sounds = __webpack_require__(22);
 const Speech = __webpack_require__(271);
 const Rewrite = __webpack_require__(177);
 const Utils = __webpack_require__(5);
-const Entity = class {
+const Entity = class extends EventEmitter{
     constructor (name, layer, options = {} ){
+        super();
         this.pace = Env.pace;
         const _process = Process.default;
         this.render = _process.render;
@@ -42787,6 +42810,11 @@ const Entity = class {
         const _rewriter = Rewrite.default;
         _rewriter.exec( f, this, ...args );
     }
+    _execWithEmit ( f, emitterEventId, ...args ){
+        const _rewriter = Rewrite.default;
+        _rewriter.execWithEmitter( f, this, emitterEventId, ...args );
+
+    }
     _execThread ( f, ...args ) {
         const _rewriter = Rewrite.default;
         let t = _rewriter.execThread( f, this, ...args );
@@ -42907,7 +42935,9 @@ const Entity = class {
             if(me.drawableID == _touchDrawableId){
                 if( process.preloadDone === true ) {
                     //_func();
-                    this._exec( func );
+                    const EmitId = 'WhenMouseTouchedStopper';
+                    this.emit( EmitId );
+                    this._execWithEmit( func, EmitId );
                 }
             }
             e.stopPropagation()
@@ -42938,6 +42968,11 @@ const Entity = class {
         return false;
 
     }
+    /**
+     * whenClickedが二重に呼ばれたときは
+     * 前回動作しているスレッドを停止させる。
+     * @param {function} func 
+     */
     whenClicked (func) {
         const process = Process.default;
         const me = this;
@@ -42949,7 +42984,10 @@ const Entity = class {
             if(me.drawableID == _touchDrawableId){
                 if( process.preloadDone === true ) {
                     //_func();
-                    this._exec( func );
+//                    this._exec( func );
+                    const EmitId = 'WhenClickedStopper';
+                    this.emit( EmitId );
+                    this._execWithEmit( func, EmitId );
                 }
             }
             e.stopPropagation()
@@ -42963,7 +43001,10 @@ const Entity = class {
                 const touching = me.isTouchingTarget(me, targets);
                 if(touching === true){
 //                    func();
-                    this._exec( func );
+//                    this._exec( func );
+                    const EmitId = 'WhenToucheingTargetStopper';
+                    this.emit( EmitId );
+                    this._execWithEmit( func, EmitId );
                 }
             },0);
         }
@@ -43999,7 +44040,7 @@ const Element = __webpack_require__(27);
 //const Env = require('./env');
 const Process = __webpack_require__(1);
 const ScratchRenderer = __webpack_require__(188);
-const StageLayering = __webpack_require__(6);
+const StageLayering = __webpack_require__(7);
 const Render = class {
     static get WHRate() {
         return 0.75;
@@ -44080,7 +44121,7 @@ module.exports = RenderWebGL;
 /* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const EventEmitter = __webpack_require__(7);
+const EventEmitter = __webpack_require__(6);
 
 const hull = __webpack_require__(190);
 const twgl = __webpack_require__(2);
@@ -56745,8 +56786,8 @@ if (true) {
 /* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const EventEmitter = __webpack_require__(7).EventEmitter;
-const StageLayering = __webpack_require__(6);
+const EventEmitter = __webpack_require__(6).EventEmitter;
+const StageLayering = __webpack_require__(7);
 // Virtual I/O devices.
 const Clock = __webpack_require__(246);
 const Keyboard = __webpack_require__(28);
@@ -58334,7 +58375,7 @@ module.exports = Loudness;
 /* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const {EventEmitter} = __webpack_require__(7);
+const {EventEmitter} = __webpack_require__(6);
 
 const VolumeEffect = __webpack_require__(178);
 
@@ -59363,7 +59404,7 @@ const Costumes = __webpack_require__(14);
 const Looks = __webpack_require__(16);
 const MathUtils = __webpack_require__(17);
 const Process = __webpack_require__(1);
-const StageLayering = __webpack_require__(6);
+const StageLayering = __webpack_require__(7);
 const Utils = __webpack_require__(5);
 const Sprite = class extends Entity {
 
@@ -59859,7 +59900,7 @@ module.exports = Sprite;
 /***/ (function(module, exports, __webpack_require__) {
 
 const Process = __webpack_require__(1);
-const StageLayering = __webpack_require__(6);
+const StageLayering = __webpack_require__(7);
 const uid = __webpack_require__(269);
 const Bubble = class {
 
@@ -60475,7 +60516,7 @@ const Canvas = __webpack_require__(15);
 const Env = __webpack_require__(4);
 const Entity = __webpack_require__(179);
 const Process = __webpack_require__(1);
-const StageLayering = __webpack_require__(6);
+const StageLayering = __webpack_require__(7);
 const Stage = class extends Entity {
     constructor( name='stage', options={} ) {
         super( name, StageLayering.BACKGROUND_LAYER, options );    
