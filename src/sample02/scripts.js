@@ -11,6 +11,7 @@ P.prepare = async function() {
 }
 
 P.setting = async function() {
+
     // フラグクリック時のステージの動作
     // ↓ stage の whenFlag() を定義する
     P.stage.whenFlag(function() {

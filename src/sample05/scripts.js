@@ -21,12 +21,17 @@ let stopFlag = true;
 
 P.setting = async function() {
 
-    P.stage.whenFlag(async function() {
+    P.stage.whenRightNow(async function() {
         // 音を登録する
         this.addSound( P.sounds.Chill, { 'volume' : 100 } );
     });
 
     // ステージをクリックしたときの動作
+    // ずっと繰り返しの途中で 再度クリックすると 実行中スレッドを停止させ あたらしいスレッドを開始する
+    // スレッドを停止したとしても再生中の音は止まらないことを実証するためのコードを書く。
+    // 再度クリックで 音の再生を始めないときは、再生中の音は終わるまでなり続ける。(実証のためには ★の行をコメントアウトしてください)
+    // 再度クリックで 音の再生を始めるときは 再生中の音は中断されて新しく音が鳴り始める。
+    // この動作は Scratch3 と同じである。
     P.stage.whenClicked(async function () {
 
         // ↓ グローバルスコープにて定義している変数
@@ -40,7 +45,8 @@ P.setting = async function() {
             }
         } else {
             stopFlag = true;
-            this.soundStop(); // 鳴っている音を止める。
+            // 音が鳴っている最中に音を止める。--> 音が止まる。
+            //this.soundStop();  // ( ★ )
         }
     })
 

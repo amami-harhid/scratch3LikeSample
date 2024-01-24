@@ -36,7 +36,7 @@ P.prepare = async function() {
 
 P.setting = async function() {
 
-    P.stage.whenFlag(async function() {
+    P.stage.whenRightNow(async function() {
         this.addSound( P.sounds.Chill, { 'volume' : 20 } );
     });
     P.stage.whenFlag(async function() {

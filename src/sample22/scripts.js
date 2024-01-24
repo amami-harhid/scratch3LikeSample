@@ -15,13 +15,13 @@ P.preload = async function() {
 P.prepare = function() {
     P.stage = new P.Stage("stage");
     P.stage.addImage( P.images.BackDrop );
-    P.cat = new P.Sprite("Cat");
+    P.cat = new P.Sprite("Cat", {scale: {x:250,y:250}});
     P.cat.addImage( P.images.Cat );
     P.cat.position.x = -100;
 }
 P.setting = function() {
 
-    P.stage.whenFlag(function(){
+    P.stage.whenRightNow(function(){
         this.addSound( P.sounds.Chill, { 'volume' : 20 } );
     })
     P.stage.whenFlag(async function() {

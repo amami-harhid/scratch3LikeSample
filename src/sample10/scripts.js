@@ -23,7 +23,8 @@ P.prepare = async function() {
 const _changeDirection = 1;
 
 P.setting = async function() {
-    P.stage.whenFlag(async function() {
+
+    P.stage.whenRightNow(async function() {
         this.addSound( P.sounds.Chill, { 'volume' : 50 } );
     });
     P.stage.whenFlag(async function() {
@@ -31,7 +32,7 @@ P.setting = async function() {
             await this.startSoundUntilDone();
         }
     });
-    P.cat.whenFlag( async function() {
+    P.cat.whenRightNow( async function() {
         // 音を登録する
         this.addSound( P.sounds.Mya, { 'volume' : 1 } );
     });

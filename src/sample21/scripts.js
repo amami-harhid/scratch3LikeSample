@@ -34,7 +34,7 @@ P.prepare = function() {
 }
 P.setting = function() {
 
-    P.stage.whenFlag(function(){
+    P.stage.whenRightNow(function(){
         this.addSound( P.sounds.Chill, { 'volume' : 20 } );
     })
     P.stage.whenFlag(async function() {
