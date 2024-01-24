@@ -26,11 +26,13 @@ P.setting = async function() {
     P.stage.whenRightNow(async function() {
         this.addSound( P.sounds.Chill, { 'volume' : 50 } );
     });
+
     P.stage.whenFlag(async function() {
         for(;;) {
             await this.startSoundUntilDone();
         }
     });
+
     P.cat.whenFlag(async function() {
         for(;;) {
             // 繰り返すごとに 1秒待つ

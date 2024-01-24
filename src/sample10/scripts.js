@@ -20,8 +20,6 @@ P.prepare = async function() {
     P.cat.addImage( P.images.Cat );
 }
 
-const _changeDirection = 1;
-
 P.setting = async function() {
 
     P.stage.whenRightNow(async function() {
@@ -34,15 +32,13 @@ P.setting = async function() {
     });
     P.cat.whenRightNow( async function() {
         // 音を登録する
-        this.addSound( P.sounds.Mya, { 'volume' : 1 } );
+        this.addSound( P.sounds.Mya, { 'volume' : 5 } );
     });
     P.cat.whenFlag( async function() {
-        // ずっと繰り返す、スレッドを起動する
-        this.startThread( async function() {
-            for(;;) {
-                this.direction += _changeDirection; // TOP Scope にあるので参照可能
-            }    
-        })
+        // ずっと繰り返す
+        for(;;) {
+            this.direction += 1;
+        }    
     });
     P.cat.whenFlag( async function() {
         // ずっと繰り返す
@@ -53,26 +49,31 @@ P.setting = async function() {
             // マウスタッチしないまで待つ
             await P.Utils.waitUntil( this.isNotMouseTouching, P.Env.pace,  this ); 
         }
-});
+    });
     P.cat.whenCloned(async function(){
-        const clone = this; // 'this' is cloned instance;
-        clone.position.x = 100;
-        clone.position.y = -100;
-        clone.scale.x = 50;
-        clone.scale.y = 50;
-        clone.effect.color = 50;
-        clone.life = 1000; // <--- およそ1000msecでクローン自動死亡する 
-        clone.setVisible(true)
-        const steps = 10;   // <--- TOP SCOPE でないときはスレッド内に定義しないと参照できない！
+        // 'this' is cloned instance;
+        this.position.x = 100;
+        this.position.y = -100;
+        this.scale.x = 50;
+        this.scale.y = 50;
+        this.effect.color = 50;
+        this.setVisible(true); // <--- clone作るとき 非表示にしているので。
+    });
+    P.cat.whenCloned(async function(){
+        this.life = 1000; // <--- およそ1000msecでクローン自動死亡する 
+    });
+
+    P.cat.whenCloned(async function(){
         // ずっと繰り返す
         for(;;) {
-            clone.moveSteps( steps );
+            this.moveSteps( 10 );
             // 端に触れたら
-            clone.isTouchingEdge(function(){
+            this.isTouchingEdge(function(){
                 // ミャーと鳴く。
-                clone.soundPlay()
+                this.soundPlay()
             });
-            clone.ifOnEdgeBounds();
+            this.ifOnEdgeBounds();
         }
     });
+
 }

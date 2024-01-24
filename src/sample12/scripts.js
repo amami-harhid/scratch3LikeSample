@@ -35,6 +35,10 @@ P.setting = async function() {
 
         const x = P.mousePosition.x;
         const y = P.mousePosition.y;
-        P.cat.moveTo(x,y)
+        P.cat.broadcast('MouseClick', x, y)
+    });
+
+    P.cat.whenBroadcastReceived('MouseClick', function(x, y){
+        this.moveTo(x,y);
     });
 }

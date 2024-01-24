@@ -23,27 +23,20 @@ P.setting = async function() {
         this.addSound( P.sounds.Chill, { 'volume' : 50 } );
     });
     P.stage.whenFlag(async function() {
-        this.startThread( async function() {
-            for(;;) {
-                await this.startSoundUntilDone();
-            }
-        });
+        for(;;) {
+            await this.startSoundUntilDone();
+        }
     });
     P.cat.whenRightNow( async function() {
         // 音を登録する
         this.addSound( P.sounds.Mya, { 'volume' : 20 } );
     });
     P.cat.whenFlag( async function() {
-        // 向きをランダムに変える。
-        const me = this;
-        // ずっと繰り返す、スレッドを起動する
-        me.startThread( async function() {
-            const me = this;
-            const direction = 1;
-            for(;;) {
-                me.direction += direction;
-            }
-        });
+        // ずっと繰り返す( 向きを変え続ける )
+        const direction = 1;
+        for(;;) {
+            this.direction += direction;
+        }
     });
 
     P.cat.whenClicked( async function() {
@@ -52,25 +45,21 @@ P.setting = async function() {
     
     P.cat.whenCloned( async function() {
     
-        const me = this;
-        me.scale.x = 50;
-        me.scale.y = 50;
-        me.effect.color = 50;
-        // ずっと繰り返す、スレッドを起動する
-        me.startThread( async function() {                
-            const me = this;
-            me.setVisible(true);
-            const steps = 10;
-            for(;;) {
-                me.moveSteps( steps );
-                // 端に触れたら
-                this.isTouchingEdge(function(){
-                    // ミャーと鳴く。
-                    me.soundPlay()
-                });
-                me.ifOnEdgeBounds();
+        this.scale.x = 50;
+        this.scale.y = 50;
+        this.effect.color = 50;
+        // ずっと繰り返す
+        this.setVisible(true); // <--- clone作るとき 非表示にしているので。
+        for(;;) {
+            this.moveSteps( 10 );
+            // 端に触れたら
+            if( this.isTouchingEdge()){
+                // ミャーと鳴く。
+                this.soundPlay()
             }
-        });
+            // 端に触れたら跳ね返る
+            this.ifOnEdgeBounds();
+        }
 
     });
 

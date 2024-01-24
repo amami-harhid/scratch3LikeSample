@@ -47,7 +47,7 @@ P.setting = async function() {
     P.cross.whenFlag( async function() {
         // ずっと繰り返す
         for(;;) {
-            this.rotationRight(1);
+            this.turnRight(1);
         }    
     });
     P.cross.whenFlag( async function() {
