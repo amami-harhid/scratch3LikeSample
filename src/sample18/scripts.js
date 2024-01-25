@@ -64,8 +64,7 @@ P.setting = async function() {
             // （他のキーが押されていてもOK）
             if(P.getKeyIsDown('Space')){
                 this.soundPlay();
-                const options = {scale:{x:20,y:20},direction:0}
-                this.clone(options);
+                this.clone();
                 //次をコメントアウトしているときは キー押下中連続してクローン作る  
                 //await P.waitUntil( P.keyboard.isKeyNotPressed.bind(P.keyboard) );
             }
@@ -74,11 +73,16 @@ P.setting = async function() {
     // クローンされたときの動作  
     P.cross.whenCloned(function(){
         const c = this; // <--- cross instance;
-        const bounds = c.render.renderer.getBounds(c.drawableID);
+        const bounds = this.render.renderer.getBounds(c.drawableID);
         const height = Math.abs(bounds.top - bounds.bottom);
-        c.position.y += height / 2;
-        c.nextCostume();
-        c.setVisible(true);
+        this.position.y += height / 2;
+    });
+    // クローンされたときの動作  
+    P.cross.whenCloned(function(){
+        this.scale = {x:20, y:20};
+        this.direction = 0;
+        this.nextCostume();
+        this.setVisible(true);
     });
     // クローンされたときの動作  
     P.cross.whenCloned(function(){

@@ -74,7 +74,7 @@ P.setting = function() {
     // メッセージ(SPEECH)を受け取ったら スピーチをする
     P.cat.whenBroadcastReceived('SPEAK', async function(words, properties, gender='male', locale='ja-JP') {
 
-        this.speech(words, properties);
+        this.speech(words, properties, gender, locale);
 
     });
 

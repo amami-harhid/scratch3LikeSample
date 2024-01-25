@@ -14,10 +14,11 @@ P.prepare = async function() {
     P.stage = new P.Stage("stage");
     P.stage.addImage( P.images.Jurassic );
 
-    P.cat = new P.Sprite("Cat");
-    P.cat.addImage( P.images.Cat1 );
-    P.cat.addImage( P.images.Cat2 );
-    P.cat.direction = 75;
+    P.cat1 = new P.Sprite("Cat1");
+    P.cat1.addImage( P.images.Cat1 );
+    P.cat1.addImage( P.images.Cat2 );
+    P.cat1.direction = 75;
+
     P.cat2 = new P.Sprite("Cat2");
     P.cat2.addImage( P.images.Cat1 );
     P.cat2.addImage( P.images.Cat2 );
@@ -40,7 +41,8 @@ const bubbleTextArr2 = [
     "★こんばんは★",
 ];
 P.setting = async function() {
-    P.cat.whenFlag( async function() {
+
+    P.cat1.whenFlag( async function() {
         for(;;) {
             this.ifOnEdgeBounds();
             this.moveSteps(1);
@@ -52,7 +54,7 @@ P.setting = async function() {
             this.moveSteps(1);
         }
     });
-    P.cat.whenFlag( async function() {
+    P.cat1.whenFlag( async function() {
         await P.wait(100)
         for(;;) {
             this.nextCostume();
@@ -66,7 +68,7 @@ P.setting = async function() {
             await P.wait(100)
         }
     });
-    P.cat.whenFlag( async function() {
+    P.cat1.whenFlag( async function() {
         for(;;) {
             for(;;) {
                 this.setScale(this.scale.x - 2, this.scale.y - 2);
@@ -78,7 +80,7 @@ P.setting = async function() {
             }
         }
     });
-    P.cat.whenFlag( async function() {
+    P.cat1.whenFlag( async function() {
         let counter = 0
         for(;;) {
             const text = bubbleTextArr[ Math.ceil(Math.random() * bubbleTextArr.length) - 1 ]
@@ -100,7 +102,7 @@ P.setting = async function() {
 
     });
     P.cat2.whenFlag( async function() {
-        let scale = {x: 60, y:60};
+        let scale = {x: 60, y:60}; // <-- フキダシのサイズ用（ Scratch3 の機能にはない ）
         for(;;) {
             const text = bubbleTextArr2[ Math.ceil(Math.random() * bubbleTextArr2.length) - 1 ]
             this.think(text, {scale:scale});
@@ -112,19 +114,14 @@ P.setting = async function() {
         }
 
     });
-    P.cat.whenFlag( async function() {
-        let idx = 0;
-        for(;;) {
-            bubble.text = `abcdefg${++idx}`;
-            if( bubble.exit === true) {
-                break;
-            }
-        }
-    });
-    P.cat.whenFlag( async function() {
+
+    P.cat1.whenFlag( async function() {
         await P.wait(20*1000); // 20秒たったらバブルループを終わらせる。
         bubble.exit = true;
-        bubble2.exit = true;
     });
 
+    P.cat2.whenFlag( async function() {
+        await P.wait(20*1000); // 20秒たったらバブルループを終わらせる。
+        bubble2.exit = true;
+    });
 }

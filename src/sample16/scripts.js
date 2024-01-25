@@ -19,17 +19,17 @@ P.prepare = async function() {
 
     P.cat1 = new P.Sprite("Cat1");
     P.cat1.addImage( P.images.Cat );
-    P.cat1.setPosition( -P.stageWidth/4, +P.stageHeight/4 );
+    //P.cat1.setPosition( -P.stageWidth/4, +P.stageHeight/4 );
     P.cat1.effect.color = 50;
     P.cat1.setRotationStyle( P.RotationStyle.LEFT_RIGHT );
 
     P.cat2 = new P.Sprite("Cat2");
     P.cat2.addImage( P.images.Cat );
-    P.cat2.setPosition( 0, 0 );
+    //P.cat2.setPosition( 0, 0 );
 
     P.cat3 = new P.Sprite("Cat3");
     P.cat3.addImage( P.images.Cat );
-    P.cat3.setPosition( P.stageWidth /4, -P.stageHeight/4 );
+    //P.cat3.setPosition( P.stageWidth /4, -P.stageHeight/4 );
     P.cat3.effect.color = 100;
     P.cat3.setRotationStyle( P.RotationStyle.DONT_ROTATE );
 }
@@ -46,14 +46,22 @@ P.setting = async function() {
         }
     });
     P.stage.whenFlag(async function() {
+        P.broadcast('ToPosition');
         // ずっと繰り返す
         for(;;) {
             // ５秒ごとに、元の位置に戻る。
             await P.wait(5000);
-            P.cat1.setPosition( -P.stageWidth/4, +P.stageHeight/4 );
-            P.cat2.setPosition( 0, 0 );
-            P.cat3.setPosition( P.stageWidth /4, -P.stageHeight/4 );
+            P.broadcast('ToPosition');
         }
+    });
+    P.cat1.recieveMessage('ToPosition', async function() {
+        this.setPosition( -P.stageWidth/4, +P.stageHeight/4 );
+    });
+    P.cat2.recieveMessage('ToPosition', async function() {
+        this.setPosition( 0, 0 );
+    });
+    P.cat3.recieveMessage('ToPosition', async function() {
+        this.setPosition( P.stageWidth /4, -P.stageHeight/4 );
     });
     P.cat1.whenFlag( async function() {
         // ずっと繰り返す

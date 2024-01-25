@@ -43,7 +43,7 @@ P.setting = async function() {
     // ネコをクリックしたら、向きが 90度⇒-90度 と反転する。
     P.cat.whenClicked( async function() {
         this.direction *= -1; // マイナス反転
-        this.direction += 5; // 少しだけ向きを変える
+        this.turnRight( 5 ); // 少しだけ向きを変える
         //↑ これをすると 端のところで上へ移動していく。
         //この動きは Scratch3 と同じである。
     });

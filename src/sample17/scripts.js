@@ -65,15 +65,7 @@ P.setting = async function() {
         for(;;) {
             // クロスがマウスに触れたとき
             if ( this.isMouseTouching() ) {
-                const butterfly = P.butterfly;
-                const mousePosition = P.mousePosition;
-                butterfly.position.x = mousePosition.x;
-                butterfly.position.y = mousePosition.y;
-                const scale = {x: 15, y: 15}
-                butterfly.scale.x = scale.x;
-                butterfly.scale.y = scale.y;
-                butterfly.direction = P.randomDirection;
-                await P.butterfly.clone();
+                P.butterfly.clone();
                 // 下をコメントアウトすると、十字にさわっている間は クローンを作り続ける
                 // 下を生かすと、十字に触ったときにクローンを作るが、次には進まない
                 await P.Utils.waitUntil( this.isNotMouseTouching, P.Env.pace, this); // 「マウスポインターが触らない」迄待つ。
@@ -81,14 +73,23 @@ P.setting = async function() {
             }
         }
     });
-    // クローンされたときの動作
+    
+    // クローンされたときのクローンの動作
     P.butterfly.whenCloned( function() {
-        const s = this;
-        s.setVisible(true);
-        s.life = 5000; // ミリ秒。クローンが生きている時間。（およその時間）
-        s.setVisible(true);
+        this.position.x = P.mousePosition.x;
+        this.position.y = P.mousePosition.y;
+        const scale = {x: 15, y: 15}
+        this.scale.x = scale.x;
+        this.scale.y = scale.y;
+        this.direction = P.randomDirection;
     });
-    // クローンされたときの動作
+
+    // クローンされたときのクローンの動作
+    P.butterfly.whenCloned( function() {
+        this.setVisible(true);
+        this.life = 5000; // ミリ秒。クローンが生きている時間。（およその時間）
+    });
+    // クローンされたときのクローンの動作
     P.butterfly.whenCloned( async function() {
         for(;;) {
             // ランダムな場所
@@ -101,7 +102,7 @@ P.setting = async function() {
             }
         }
     });
-    // クローンされたときの動作
+    // クローンされたときのクローンの動作
     P.butterfly.whenCloned( function() {
         let _scaleRate = 0.5;
         for(;;) {
