@@ -39,5 +39,5 @@ P.setting = async function() {
             this.pointToMouse( P.Sprite.Global );
             this.moveSteps(10);
         }    
-});
+    });
 }

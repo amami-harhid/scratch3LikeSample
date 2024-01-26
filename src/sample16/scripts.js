@@ -46,21 +46,21 @@ P.setting = async function() {
         }
     });
     P.stage.whenFlag(async function() {
-        P.broadcast('ToPosition');
+        this.broadcast('ToPosition');
         // ずっと繰り返す
         for(;;) {
             // ５秒ごとに、元の位置に戻る。
             await P.wait(5000);
-            P.broadcast('ToPosition');
+            this.broadcast('ToPosition');
         }
     });
-    P.cat1.recieveMessage('ToPosition', async function() {
+    P.cat1.whenBroadcastReceived('ToPosition', async function() {
         this.setPosition( -P.stageWidth/4, +P.stageHeight/4 );
     });
-    P.cat2.recieveMessage('ToPosition', async function() {
+    P.cat2.whenBroadcastReceived('ToPosition', async function() {
         this.setPosition( 0, 0 );
     });
-    P.cat3.recieveMessage('ToPosition', async function() {
+    P.cat3.whenBroadcastReceived('ToPosition', async function() {
         this.setPosition( P.stageWidth /4, -P.stageHeight/4 );
     });
     P.cat1.whenFlag( async function() {

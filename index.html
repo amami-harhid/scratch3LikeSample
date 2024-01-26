@@ -34,7 +34,7 @@ h4 {
           if(text.match(/\[sample\d+\]/)) {
             const id = text.replace(/^\[(sample\d+)\](.+)$/,'$1');
             li.on('click', function(){
-              window.open(`./src/${id}/`);
+              //window.open(`./src/${id}/`);
             })
           }
         })
@@ -47,30 +47,195 @@ h4 {
     <h4>現在開発中(デバッグ用)のためライブラリサイズが大きくなっています(3.5M)。</h4><h4>通信速度の遅いWIFI環境などでは初回ロード時に白紙ページが長く出るかもしれません(30秒ほど)</h4>
     <h4>キャッシュされていたら２回目以降はすぐにうごきます。</h4>
     <ul>
-      <li>[sample00] スクリプトが空のとき白色の背景を表示</li>
-      <li>[sample01] 画像をロード後すぐにステージに表示</li>
-      <li>[sample02] 旗クリック時に ステージ時に画像をステージに表示</li>
-      <li>[sample03] 「終わるまで音を鳴らす」をずっと繰り返す</li>
-      <li>[sample04] ステージをクリック「終わるまで音を鳴らす」（繰り返し）<br>クリックするたびに音の再生をやり直す</li>
-      <li>[sample05] ステージをクリックで「終わるまで音を鳴らす」（繰り返し）<br>二度目のクリックで音の再生をやり直す</li>
-      <li>[sample06] スプライトを作って表示するサンプル</li>
-      <li>[sample07] スプライトを 動かす（端に触れたら跳ね返る）</li>
-      <li>[sample08] 端に触れたらミャーと鳴く</li>
-      <li>[sample09] スプライトクリックでクローンを作る<br>※今のところクローンは最前面に表示される(Scratch3と異なる動き)<br>※クローンの表示階層はScratch3にあわせて修正する予定</li>
-      <li>[sample10] マウスポインターがスプライトに触ったらクローンを作る</li>
-      <li>[sample11] 〇秒で「どこかの」場所へ移動する</li>
-      <li>[sample12] クリックした場所へスプライトが移動する</li>
-      <li>[sample13] クリックした位置へスプライトが〇秒で移動する</li>
-      <li>[sample14] スプライトが マウスポインターを追いかける</li>
-      <li>[sample15] スプライトはステージの端を越えては進めないことを検証</li>
-      <li>[sample16] 「左右のみ回転」「回転しない」「自由に回転」</li>
-      <li>[sample17] 十字スプライトを 右側に回転させ、マウスポインターに触れたら<br>クローンを作る</li>
-      <li>[sample18] キーボード入力で左右に動き、スペースキーで弾を発射、発射時には発射音を再生する</li>
-      <li>[sample19] スプライトの「ふきだし」のサンプル</li>
-      <li>[sample20] イベントメッセージで「ふきだし」を出す</li>
-      <li>[sample21] スピーチ機能のサンプル（ネコへタッチ、クリック）<br>メッセージ送信によりスピーチをする</li>
-      <li>[sample22] スピーチ（ネコへタッチ、クリック）、メッセージ送信したらスピーチが終わるまで待つ</li>
-      <li>[sample23] マウスポインターの位置をネコの吹き出しで表示する（旗クリックしてから１秒後）</li>
+      <li>[sample00] スクリプトが空のとき白色の背景を表示
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/6/embed/html,js,result/dark/"></script>
+          </li>
+        </details>
+      </li>
+      <li>[sample01] ロード後すぐに画像をステージに表示 
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/7/embed/html,js,result/dark/"></script>
+          </li>
+        </details>
+      </li>
+      <li>[sample02] 旗クリック時に画像をステージに表示
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/8/embed/html,js,result/dark/"></script>
+          </li>
+        </details>
+      </li>
+      <li>[sample03] 「終わるまで音を鳴らす」をずっと繰り返す
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/10/embed/html,js,result/dark/"></script>
+          </li>
+        </details>
+      </li>
+      <li>[sample04] ステージをクリック「終わるまで音を鳴らす」（繰り返し）<br>クリックするたびに音の再生をやり直す
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/13/embed/html,js,result/dark/"></script>
+          </li>
+        </details>
+      </li>
+      <li>[sample05] ステージをクリックで「終わるまで音を鳴らす」（繰り返し）<br>二度目のクリックで音の再生をやり直す
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/19/embed/html,js,result/dark/"></script>
+          </li>
+        </details>
+      </li>
+      <li>[sample06] スプライトを作って表示するサンプル
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/21/embed/html,js,result/dark/"></script>
+          </li>
+        </details>
+      </li>
+      <li>[sample07] スプライトを 動かす（端に触れたら跳ね返る）
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/23/embed/html,js,result/dark/"></script>
+          </li>
+        </details>
+      </li>
+      <li>[sample08] 端に触れたらミャーと鳴く
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/24/embed/html,js,result/dark/"></script>
+          </li>
+        </details>       
+      </li>
+      <li>[sample09] スプライトクリックでクローンを作る<br>※今のところクローンは最前面に表示される(Scratch3と異なる動き)<br>※クローンの表示階層はScratch3にあわせて修正する予定
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/25/embed/html,js,result/dark/"></script>
+          </li>
+        </details>             
+      </li>
+      <li>[sample10] マウスポインターがスプライトに触ったらクローンを作る
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/27/embed/html,js,result/dark/"></script>
+          </li>
+        </details>
+      </li>
+      <li>[sample11] 〇秒で「どこかの」場所へ移動する
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/28/embed/html,js,result/dark/"></script>
+          </li>
+        </details>
+      </li>
+      <li>[sample12] クリックした場所へスプライトが移動する
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/31/embed/html,js,result/dark/"></script>
+          </li>
+        </details> 
+      </li>
+      <li>[sample13] クリックした位置へスプライトが〇秒で移動する
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/33/embed/html,js,result/dark/"></script>
+          </li>
+        </details>    
+      </li>
+      <li>[sample14] スプライトが マウスポインターを追いかける
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/35/embed/html,js,result/dark/"></script>
+          </li>
+        </details>
+      </li>
+      <li>[sample15] スプライトはステージの端を越えては進めないことを検証
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/36/embed/html,js,result/dark/"></script>
+          </li>
+        </details>
+      </li>
+      <li>[sample16] 「左右のみ回転」「回転しない」「自由に回転」
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/43/embed/html,js,result/dark/"></script>
+          </li>
+        </details>
+      </li>
+      <li>[sample17] 十字スプライトを 右側に回転させ、マウスポインターに触れたら<br>クローンを作る
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/44/embed/html,js,result/dark/"></script>
+          </li>
+        </details>
+      </li>
+      <li>[sample18] キーボード入力で左右に動き、スペースキーで弾を発射、発射時には発射音を再生する
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/46/embed/html,js,result/dark/"></script>
+          </li>
+        </details>
+      </li>
+      <li>[sample19] スプライトの「ふきだし」のサンプル
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/48/embed/html,js,result/dark/"></script>
+          </li>
+        </details>
+      </li>
+      <li>[sample20] イベントメッセージで「ふきだし」を出す
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/50/embed/html,js,result/dark/"></script>
+          </li>
+        </details>
+      </li>
+      <li>[sample21] スピーチ機能のサンプル（ネコへタッチ、クリック）<br>メッセージ送信によりスピーチをする
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li>
+            <script async src="//jsfiddle.net/AmamiHarhid/jb0p47gd/52/embed/html,js,result/dark/"></script>
+          </li>
+        </details>
+      </li>
+      <li>[sample22] スピーチ（ネコへタッチ、クリック）、メッセージ送信したらスピーチが終わるまで待つ
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li><script async src="//jsfiddle.net/AmamiHarhid/8nse40ma/2/embed/html,js,result/dark/"></script></li>
+        </details>
+      </li>
+      <li>[sample23] マウスポインターの位置をネコの吹き出しで表示する（旗クリックしてから１秒後）
+        <details>
+          <summary>>JSFIDDLE</summary>
+          <li><script async src="//jsfiddle.net/AmamiHarhid/8nse40ma/55/embed/html,js,result/dark/"></script></li>
+        </details>
+
+      </li>
     </ul>
   </body>
 </html>
