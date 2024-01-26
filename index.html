@@ -25,22 +25,6 @@ h4 {
   font-size: smaller;
 }
 </style>
-<script>
-      $(function() {
-        let liArr = $('li');
-        liArr.map((_idx,_li)=>{
-          const li = $(_li);
-          const text = li.text();
-          if(text.match(/\[sample\d+\]/)) {
-            const id = text.replace(/^\[(sample\d+)\](.+)$/,'$1');
-            li.on('click', function(){
-              //window.open(`./src/${id}/`);
-            })
-          }
-        })
-      });
-
-</script>
   </head>
   <body>
     <h1>Scratch3LikeJs Sample集</h1>
