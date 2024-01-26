@@ -33,191 +33,213 @@ h4 {
     <ul>
       <li>[sample00] スクリプトが空のとき白色の背景を表示
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/6/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
-          </li>
-        </details>
+          <summary>>解説</summary>
+          <p>Javascriptのコードがありません。その場合には ステージ（白）のまま「旗」だけを表示します。</p>
+          <p>スクリプトが空、旗をクリックしても「旗クリック」イベント処理を定義していないので何も起こりません。</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/6/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
+        </details>        
       </li>
       <li>[sample01] ロード後すぐに画像をステージに表示 
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/7/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
-          </li>
-        </details>
+          <summary>>解説</summary>
+          <p>ステージへ背景を表示するだけのサンプルです。旗を表示する前に背景を表示しています。</p>
+          <p>旗をクリックしても「旗クリック」イベント処理を定義していないので何も起こりません。</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/7/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
+        </details>        
       </li>
       <li>[sample02] 旗クリック時に画像をステージに表示
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/8/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
-          </li>
-        </details>
+          <summary>>解説</summary>
+          <p>ステージへは最初は背景を表示しません。「旗クリック」で背景画像を表示します。</p>
+          <p>「旗クリック」イベントにてステージへ背景を表示するようにイベント処理を定義しています。</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/8/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
+        </details>        
       </li>
       <li>[sample03] 「終わるまで音を鳴らす」をずっと繰り返す
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/10/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
-          </li>
-        </details>
+          <summary>>解説</summary>
+          <p>旗をクリックすると、ずっと繰り返し「終わるまで音を鳴らす」が動作します。</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/10/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
+        </details>        
       </li>
       <li>[sample04] ステージをクリック「終わるまで音を鳴らす」（繰り返し）<br>クリックするたびに音の再生をやり直す
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/13/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
-          </li>
-        </details>
+          <summary>>解説</summary>
+          <p>ステージをクリックすると、ずっと繰り返し「終わるまで音を鳴らす」が動作します。</p>
+          <p>音が鳴り始めた後に次の「同じ音」がなりだすと先の音の再生は中止されます。これはScratch3と同じです。</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/13/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
+        </details>        
       </li>
       <li>[sample05] ステージをクリックで「終わるまで音を鳴らす」（繰り返し）<br>二度目のクリックで音の再生をやり直す
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/19/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
-          </li>
-        </details>
+          <summary>>解説</summary>
+          <p>ステージをクリックが何回目かを記録して、再生を始めたり止めたりするサンプルです。</p>
+          <p>変数を使って制御を行います。</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/19/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
+        </details>        
       </li>
       <li>[sample06] スプライトを作って表示するサンプル
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/21/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
-          </li>
-        </details>
+          <summary>>解説</summary>
+          <p>スプライトを作り表示するだけのサンプルです。</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/21/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
+        </details>        
       </li>
       <li>[sample07] スプライトを 動かす（端に触れたら跳ね返る）
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/23/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
-          </li>
-        </details>
+          <summary>>解説</summary>
+          <p>スプライトを動かすサンプルです。端に触れたら跳ね返る動きをさせています。</p>
+          <p>跳ね返る動きをScratch3に合わせています（跳ね返る角度、端の内側へ戻す動き）</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/23/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
+        </details>        
       </li>
       <li>[sample08] 端に触れたらミャーと鳴く
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/24/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
-          </li>
-        </details>       
+          <summary>>解説</summary>
+          <p>スプライトで音を鳴らすサンプルです。端に触れたらミャーとなくようにしています。</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/24/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
+        </details>        
       </li>
       <li>[sample09] スプライトクリックでクローンを作る<br>※今のところクローンは最前面に表示される(Scratch3と異なる動き)<br>※クローンの表示階層はScratch3にあわせて修正する予定
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/25/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
-          </li>
-        </details>             
+          <summary>>解説</summary>
+          <p>スプライトのクローンを作るサンプルです。</p>
+          <p>スプライトのプロパティ（位置・向き・サイズ・色効果）などはクローンに引き継がれます。</p>
+          <p>クローンが作られたときのイベント処理定義でクローンの動きを定義しています。</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/25/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
+        </details>        
       </li>
       <li>[sample10] マウスポインターがスプライトに触ったらクローンを作る
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/27/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
-          </li>
-        </details>
+          <summary>>解説</summary>
+          <p>スプライトにマウスポインターが触れたときのイベント登録のサンプルです。</p>
+          <p>このサンプルではスプライトにマウスポインターが触れたときに、自分自身のクローンを作ります。</p>
+          <p>クローンされた後に、位置や色を変えて出現させます。</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/27/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
+        </details>        
       </li>
       <li>[sample11] 〇秒で「どこかの」場所へ移動する
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/28/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
-          </li>
-        </details>
+          <summary>>解説</summary>
+          <p>〇秒で「どこかの」場所へ移動するサンプルです。</p>
+          <p>１秒ごとに『１秒で「どこかの」場所へ移動する』ようにしています。</p>
+          <p>旗をクリックした後、「１秒待つ」をしたあとに繰り返し処理が始まります。</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/28/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
+        </details>        
       </li>
       <li>[sample12] クリックした場所へスプライトが移動する
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/31/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
-          </li>
-        </details> 
+          <summary>>解説</summary>
+          <p>Sample11と似ていますが、ステージをマウスポインターでクリックしたとき、クリックした場所へ移動させます。</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/31/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
+        </details>        
       </li>
       <li>[sample13] クリックした位置へスプライトが〇秒で移動する
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/33/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
-          </li>
-        </details>    
+          <summary>>解説</summary>
+          <p>Sample12と似ていますが、ステージをマウスポインターでクリックしたとき、クリックした場所へ「〇秒で」移動させます。</p>
+          <p>移動している最中に別の場所をクリックすると、そのときの場所からマウスポインタークリックの場所へ移動を始めます。</p>
+          <p>この動きは Scratch3 と同じです。</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/33/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
+        </details>        
       </li>
       <li>[sample14] スプライトが マウスポインターを追いかける
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/57/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
-          </li>
-        </details>
+          <summary>>解説</summary>
+          <p>「マウスポインターの向きに向く」、と「〇歩動く」の組み合わせを、ずっと繰り返すサンプルです。</p>
+          <p>スプライトは ステージの外に出ていかないですが、ステージの外にマウスポインターがあっても向きはマウスポインターの方向に向きます。</p>
+          <p>この動きは Scratch3 と同じです。</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/57/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
+        </details>        
       </li>
       <li>[sample15] スプライトはステージの端を越えては進めないことを検証
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/36/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
-          </li>
-        </details>
+          <summary>>解説</summary>
+          <p>「〇歩動く」のコードの場合、スプライトはステージの端で止まり外に出ていきません</p>
+          <p>この動きは Scratch3 と同じです。</p>
+          <p>スプライトをクリックすると、反対方向＋（５度）少し向きが変わります。斜めに進みだしますが、ステージの端に到達すると上の方へずれていきます。</p>
+          <p>この動きも Scratch3 と同じです。</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/36/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
+        </details>        
       </li>
       <li>[sample16] 「左右のみ回転」「回転しない」「自由に回転」
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/43/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
-          </li>
-        </details>
+          <summary>>解説</summary>
+          <p>「左右のみ回転」「回転しない」「自由に回転」の効果を、３匹のネコスプライトで確認するためのサンプルです。</p>
+          <p>この動きは Scratch3 と同じです。</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/43/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
+        </details>        
       </li>
       <li>[sample17] 十字スプライトを 右側に回転させ、マウスポインターに触れたら<br>クローンを作る
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/44/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
-          </li>
+          <summary>>解説</summary>
+          <p>スプライトに「マウスポインター」が触れたときの動作を確認するためのサンプルです。</p>
+          <p>繰り返しのなかで「マウスポインターに触れたとき」の判定、コスチュームを変える、「触れなくなるまで待つ」、その後にコスチュームを切り替える、の動きを作っています。この動きにより『十字』にマウスポインターが触れたら赤くなり、離れたら灰色に戻ります。</p>
+          <p>別の繰り返しのなかでマウスポインターに触れたらクローンを作る処理を作っています。繰り返しのなかで「触れなくなるまで待つ」ので、クローンは大量発生しません。</p>
+          <p>なお、繰り返しのなかの「触れなくなるまで待つ」行を消すと、クローンは連続して大量発生します。</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/44/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
         </details>
       </li>
       <li>[sample18] キーボード入力で左右に動き、スペースキーで弾を発射、発射時には発射音を再生する
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/46/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
+          <summary>>解説</summary>
+          <p>繰り返し処理のなかで『キー入力』を判定して、スプライトを動かす、クローンを作るを試してみたサンプルです。</p>
+          <p>左矢印キー、右矢印キーで左右に動きます。スペースキーを押すと 弾を発射し同時に発射音を鳴らします。</p>
+          <p>弾はクローンであり、ステージの端に到達するとクローンは消滅します。</p>
+          <p>左右への動き、クローンの動きのなめらかさ具合など、Scratch3と（なるべく）一致するようにScratch3LikeJSを作っています。</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/46/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
         </details>
       </li>
       <li>[sample19] スプライトの「ふきだし」のサンプル
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/48/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
-          </li>
+          <summary>>解説</summary>
+          <p>「ふきだし」のサンプルです。</p>
+          <p>〇〇と言う、〇〇と〇秒言う、〇〇と考える、〇〇と〇秒考えるを Scratch3風に表示します。</p>
+          <p>テキストが空の場合には、「ふきだし」が消えますが、これはScratch3と同じです。</p>
+          <p>スプライトが上下反転かつコスチュームが切り替わるときに「ふきだし」が上下に動きますが、これはScratch3と同じ効果です。</p>
+          <p>Scratch3と異なり、「ふきだし」のサイズを変えることができます。サンプルでは２匹のネコの「ふきだし」の大きさが異なりますが、これはScratch3にはない機能です。</p>
+          <p>サンプルでは、２０秒経過した後は「ふきだし」を出さなくなります、（フキダシ表示の制御の確認のために）意図した動きですのでご注意ください</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/48/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
         </details>
       </li>
       <li>[sample20] イベントメッセージで「ふきだし」を出す
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/50/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
-          </li>
+          <summary>>解説</summary>
+          <p>メッセージを送信し、それを受け取ることで「ふきだし」を出す動きのサンプルです。</p>
+          <p>２匹のネコが会話をしているようにしてみました。</p>
+          <p>最後には２匹のネコは左右反転して退場します。</p>
+          <p>「メッセージを送って待つ」により、「〇秒言う」の吹き出しを表示し終わるまでは、次のメッセージを送らないという動きをしています。</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/50/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
         </details>
       </li>
       <li>[sample21] スピーチ機能のサンプル（ネコへタッチ、クリック）<br>メッセージ送信によりスピーチをする
         <details>
-          <summary>>JSFIDDLE</summary>
-          <li>
-            <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/52/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
-          </li>
+          <summary>>解説</summary>
+          <p>マウスポインターがネコに触れたときに 「おっと」とスピーチします。</p>
+          <p>ネコをクリックすると、「そこそこ」とスピーチします。</p>
+          <p>Scratch3の「拡張：音声合成」と同じようにスピーチをするようにしていますが、Scratch3と異なり、声の種類（Male/Female）とピッチをプログラムで指定できますので、Scratch3と同じ声にもできますし、別の声を作ることもできます。</p>
+          <p>サンプルでは「メッセージを送って待つ」をすることで「スピーチ」をしています。Scratch3と異なりまして、メッセージ送信では「パラメーター」を一緒に送ることができます。</p>
+          <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/52/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
         </details>
       </li>
       <li>[sample22] スピーチ（ネコへタッチ、クリック）、メッセージ送信したらスピーチが終わるまで待つ
         <details>
-          <summary>>JSFIDDLE</summary>
+          <summary>>解説</summary>
+          <p>Sample21 では繰り返し処理のなかで「マウスポインターに触れなくなる迄待つ」をしていますが、このサンプルでは「この待つ」をしていません。</p>
+          <p>そのため、マウスポインターが触れている間は連続してスピーチします。</p>
+          <p>スピーチするためのメッセージを「送って待つ」をしているので、スピーチが重なってしまうことはなく、前のスピーチが終わった後に再生が始まることを確認してください。</p>
+          <p>これらの動きは Scratch3と同じです。</p>
+          <p>Sample21 と比べてスプライトをより大きく表示しています。マウスポインターとネコのコスチュームとの関係を見やすくするためです。</p>
           <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/8nse40ma/2/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
         </details>
       </li>
       <li>[sample23] マウスポインターの位置をネコの吹き出しで表示する（旗クリックしてから１秒後）
         <details>
-          <summary>>JSFIDDLE</summary>
+          <summary>>解説</summary>
+          <p>「マウスポインターの座標」をフキダシにして表示するサンプルです。</p>
+          <p>Scratch3 と同じように座標を表示しています。</p>
           <iframe width="100%" height="800" src="//jsfiddle.net/AmamiHarhid/jb0p47gd/55/embedded/html,js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>          </li>
         </details>
-
       </li>
     </ul>
   </body>
