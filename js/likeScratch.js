@@ -74,7 +74,7 @@ const Backdrops = __webpack_require__(23);
 //const Css = require('./css');
 const Costumes = __webpack_require__(13);
 const Element = __webpack_require__(26);
-const Env = __webpack_require__(3);
+const Env = __webpack_require__(4);
 const EventEmitter = __webpack_require__(5).EventEmitter;
 const Importer = __webpack_require__(9);
 const js_beautify = __webpack_require__(27);
@@ -91,7 +91,8 @@ const Sounds = __webpack_require__(21);
 const Sprite = __webpack_require__(127);
 const Stage = __webpack_require__(132);
 const StageLayering = __webpack_require__(6);
-const Utils = __webpack_require__(4);
+const Utils = __webpack_require__(3);
+const Monitors = __webpack_require__(133);
 const Process = class {
 
     static getInstance() {
@@ -146,6 +147,9 @@ const Process = class {
     get Looks () {
         return Looks;
     }
+    get Monitors () {
+        return Monitors;
+    }
     get NowLoading () {
         return NowLoading;
     }
@@ -199,11 +203,36 @@ const Process = class {
         return this._render.stageHeight;
     }
 
-    get mousePosition () {
+    toScratchPosition(x, y) {
+        // Base position -> canvas 
+        const rate = this.renderRate;
+        const _x = x * rate.x;
+        const _y = y * rate.y;
+        return {x: _x, y: _y};
+    }
+
+    toActualPosition( x, y ) {
+
+        const rate = this.renderRate;
+        const _x = x / rate.x;
+        const _y = y / rate.y;
+        return {x: _x, y: _y};
+
+    }
+
+    getRenderRate() {
+        return this.renderRate;        
+    }
+
+    get renderRate() {
         const _rateX = this._render.stageWidth / this.canvas.width;
         const _rateY = this._render.stageHeight / this.canvas.height;
-        const _mouseX = (this.stage.mouse.x - this.canvas.width/2 ) * _rateX;
-        const _mouseY = (this.canvas.height/2 - this.stage.mouse.y) * _rateY;
+        return {x: _rateX, y:_rateY};
+    }
+    get mousePosition () {
+        const rate = this.renderRate;
+        const _mouseX = (this.stage.mouse.x - this.canvas.width/2 ) * rate.x;
+        const _mouseY = (this.canvas.height/2 - this.stage.mouse.y) * rate.y;
         return {x: _mouseX, y: _mouseY};
     }
 
@@ -10710,25 +10739,10 @@ module.exports = Transform;
 /* 3 */
 /***/ (function(module, exports) {
 
-const Env = {
-
-    pace : 33,
-
-    bubbleScaleLinkedToSprite : false,
-
-    WindowSize : {w: innerWidth, h: innerHeight},
-}
-
-module.exports = Env;
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
 const Utils = class {
 
     static isNumber( val ){
-        if( val && typeof val === 'number' && isFinite(val)) {
+        if( val != undefined && typeof val === 'number' && isFinite(val)) {
             return true;
         }
         return false;
@@ -10811,6 +10825,21 @@ const Utils = class {
 }
 
 module.exports = Utils;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+const Env = {
+
+    pace : 33,
+
+    bubbleScaleLinkedToSprite : false,
+
+    WindowSize : {w: innerWidth, h: innerHeight},
+}
+
+module.exports = Env;
 
 /***/ }),
 /* 5 */
@@ -11935,11 +11964,11 @@ module.exports = minilog('scratch-audioengine');
 /***/ (function(module, exports, __webpack_require__) {
 
 const RotationStyle = __webpack_require__(24);
-const Env = __webpack_require__(3);
+const Env = __webpack_require__(4);
 const Importer = __webpack_require__(9);
 const MathUtil = __webpack_require__(25);
 const Process = __webpack_require__(0);
-const Utils = __webpack_require__(4);
+const Utils = __webpack_require__(3);
 const Costumes = class {
     static get RotationStyle () {
         return RotationStyle;
@@ -12123,11 +12152,16 @@ const Canvas = class{
         if( Canvas.canvas ) {
             return;
         }
+        const stageCanvasWrapper = document.createElement('div');
+        stageCanvasWrapper.id = 'stageCanvasWrapper';
+        stageCanvasWrapper.style.position = 'relative';
+        main.appendChild(stageCanvasWrapper);
+
         let canvas = document.getElementById('canvas');
         if( canvas == undefined) {
             canvas = document.createElement('canvas');
             canvas.id = 'canvas';
-            main.appendChild(canvas);
+            stageCanvasWrapper.appendChild(canvas);
         }
         Canvas.canvas = canvas;
         return canvas;
@@ -18550,9 +18584,9 @@ module.exports = MathUtil;
 
 const Canvas = __webpack_require__(14);
 const CSS = __webpack_require__(44);
-const Env = __webpack_require__(3);
+const Env = __webpack_require__(4);
 const Process = __webpack_require__(0);
-const Utils = __webpack_require__(4);
+const Utils = __webpack_require__(3);
 const Element = class {
     static get DISPLAY_NONE () {
         return "displayNone";
@@ -18569,7 +18603,7 @@ const Element = class {
         main.style.touchAction = 'manipulation'
 //        Element.main = main;
         Process.default.main = main;
-        Element.mainPositioning(main);
+        Element.mainPositioning(main);    
         return main
     }
     static mainPositioning(main=Element.main) {
@@ -21529,7 +21563,7 @@ module.exports = VolumeEffect;
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {const Canvas = __webpack_require__(14);
-const Env = __webpack_require__(3);
+const Env = __webpack_require__(4);
 const EventEmitter = __webpack_require__(5).EventEmitter;
 const Looks = __webpack_require__(17);
 const MathUtils = __webpack_require__(18);
@@ -21537,7 +21571,7 @@ const Process = __webpack_require__(0);
 const Sounds = __webpack_require__(21);
 const Speech = __webpack_require__(131);
 const Rewrite = __webpack_require__(40);
-const Utils = __webpack_require__(4);
+const Utils = __webpack_require__(3);
 const Entity = class extends EventEmitter{
     static get EmitIdMovePromise () {
         return '_MovePromise_';
@@ -35788,7 +35822,7 @@ module.exports = MouseWheel;
 /***/ (function(module, exports, __webpack_require__) {
 
 const Process = __webpack_require__(0)
-const Utils = __webpack_require__(4);
+const Utils = __webpack_require__(3);
 const Sensing = {
 
 
@@ -38020,13 +38054,13 @@ module.exports = SoundPlayer;
 
 const Bubble = __webpack_require__(128);
 const Entity = __webpack_require__(42);
-const Env = __webpack_require__(3);
+const Env = __webpack_require__(4);
 const Costumes = __webpack_require__(13);
 const Looks = __webpack_require__(17);
 const MathUtils = __webpack_require__(18);
 const Process = __webpack_require__(0);
 const StageLayering = __webpack_require__(6);
-const Utils = __webpack_require__(4);
+const Utils = __webpack_require__(3);
 const Sprite = class extends Entity {
 
     constructor(name, options = {}) {
@@ -39146,7 +39180,7 @@ module.exports = Speech;
 
 const Backdrops = __webpack_require__(23);
 const Canvas = __webpack_require__(14);
-const Env = __webpack_require__(3);
+const Env = __webpack_require__(4);
 const Entity = __webpack_require__(42);
 const Process = __webpack_require__(0);
 const StageLayering = __webpack_require__(6);
@@ -39298,6 +39332,366 @@ const Stage = class extends Entity {
 };
 
 module.exports = Stage;
+
+/***/ }),
+/* 133 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const Process = __webpack_require__(0);
+const Monitor = __webpack_require__(134);
+
+const Monitors = class {
+
+    constructor() {
+        this.map = new Map();
+        this.v = {};
+        const me = this;
+        let timeoutId = 0;
+        const delay = 100;
+        // Scale させると位置がずれる問題。
+        // 参考：https://www.ipentec.com/document/css-representation-position-of-scaled-element
+        // --> 結局のところ、style.top , style.left で操作するのがよさそうだと思う。
+        window.addEventListener('resize', async function(){
+            
+            clearTimeout(timeoutId);
+            const keys = Array.from(me.map.keys());
+            keys.map((k)=>{
+                const v = me.map.get(k);
+                v.resize();
+            });
+            
+            timeoutId = setTimeout(async function(){
+                const process = Process.default;
+                //console.log('resize')
+                const r1 = process.getRenderRate();
+                //console.log('resize(1)', r1);
+                await process.wait(100);
+                const r2 = process.getRenderRate();
+                //console.log('resize(2)', r2);
+                const keys = Array.from(me.map.keys());
+                keys.map((k)=>{
+                    const v = me.map.get(k);
+                    v.resize(true);
+                });
+
+            }, delay);
+        }, false);
+    }
+    add(label, scale) {
+        if(!this.map.has(label)) {
+            const length = this.map.size;
+            const v = new Monitor(label, length+1,  scale);
+            this.map.set(label, v);
+            this.v[label] = v;
+        }
+    }
+
+    getVariable(label) {
+        if(this.map.has(label)) {
+            const v = this.map.get(label);
+            return v;
+        }
+        return null;
+    }
+    automatic () {
+
+        const mapKeys = this.map.keys();
+        const keys = [...mapKeys];
+        const sortKeys = keys.sort(function(a, b){
+            a.no < b.no;
+        })
+        //console.log(sortKeys);
+
+        let prevPosition;
+        sortKeys.map((key,idx)=>{
+            const v = this.map.get(key);
+            const size = v.size;
+            //console.log(size);
+            if( prevPosition == undefined) {
+                const x = 10;
+                const y = 10;
+                prevPosition = {x: x, y: y};
+                v.setPosition( {x: x, y: y} );
+            }else{
+                const x = 10;
+                const y = prevPosition.y + size.h;
+                prevPosition = {x: x, y: y};
+                v.setPosition( {x: x, y: y} );
+            }
+        })
+
+    }
+
+}
+
+module.exports = Monitors;
+
+/***/ }),
+/* 134 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const Process = __webpack_require__(0);
+const Utils = __webpack_require__(3);
+
+const Monitor = class {
+    constructor(label, no=1, scale) {
+        this._label = label;
+        this.id = Utils.generateUUID();
+        this.x = 0;
+        this.y = 0;
+        this.translateX = 0;
+        this.translateY = 0;
+        this._value = '';
+        this.stageMonitorContainer = null;
+        this.monitorLabel = null;
+        this.monitorLabel = null;
+        this.no = no
+        this._scale = (scale==undefined)? 1 : scale;
+        this._maxSize = 5;
+        const target = this.init();
+        target.setAttribute('scratch-scale', this._scale);
+        this.interact(target, scale);
+    }
+
+    init() {
+        const process = Process.default;
+        const renderRate = process.renderRate;
+
+        const getElementById = (id) => document.getElementById(id)
+        const createElement = (node) => document.createElement(node); 
+        const _stageCanvasWrapper = getElementById('stageCanvasWrapper');
+    
+        const uid = this.id;
+
+        const stageMonitorContainer = createElement('div');
+        this.stageMonitorContainer = stageMonitorContainer;
+        stageMonitorContainer.classList.add('monitor_monitor-container');
+        stageMonitorContainer.classList.add('dragged-item');
+        stageMonitorContainer.classList.add('dragTarget');
+        stageMonitorContainer.id = `stageMonitorContainer_${uid}`
+        stageMonitorContainer.setAttribute("style","touch-action: none;");
+    
+        _stageCanvasWrapper.appendChild(stageMonitorContainer);
+    
+        const defaultMonitor = createElement('div');
+        defaultMonitor.id = `defaultMonitor_${uid}`;
+        defaultMonitor.top = "100px";
+        defaultMonitor.left = "100px";
+        defaultMonitor.classList.add('monitor_default-monitor');
+        stageMonitorContainer.appendChild(defaultMonitor);
+        
+        const monitorRaw = createElement('div');
+        monitorRaw.id = `monitorRaw_${uid}`;
+        monitorRaw.classList.add('monitor_row');
+        defaultMonitor.appendChild(monitorRaw);
+    
+        const monitorLabel = createElement('div');
+        monitorLabel.id = `monitorLabel_${uid}`;
+        this.monitorLabel = monitorLabel;
+
+        monitorLabel.classList.add('monitor_label');
+        monitorRaw.appendChild(monitorLabel);
+        monitorLabel.innerHTML  = `${this._label}`;
+
+        const monitorValue = createElement('div');
+        monitorValue.id = `monitorValue_${uid}`;
+        this.monitorValue = monitorValue;
+
+        monitorValue.classList.add('monitor_value');
+        monitorRaw.appendChild(monitorValue);
+        monitorValue.innerHTML  = '     '; // 初期値スペース５文字分
+    
+        const balloon = createElement('div');
+        this.balloon = balloon;
+        balloon.classList.add('monitor_balloon');
+        balloon.innerHTML  = '---';
+        stageMonitorContainer.appendChild(balloon);
+
+
+        // canvas左上基準で位置決めする
+        // すでに存在する Variable の表示をさけて表示させたい。
+        // canvas のサイズ変更に合わせて top, left を変更したい。
+        //const top = 0;
+        //const left = 0;
+        const scale = {x : this._scale / renderRate.x , y: this._scale / renderRate.y }
+        stageMonitorContainer.style.top = 0; //`${top}px`;// (canvasClientRect.top+50) +"px";
+        stageMonitorContainer.style.left = 0; //`${left}px` ;// (canvasClientRect.left+50) +"px";
+        stageMonitorContainer.style.transform = `scale(${scale.x}, ${scale.y})`;
+
+        const original_rect = stageMonitorContainer.getBoundingClientRect();
+
+        this.original_rect = original_rect;
+
+        return stageMonitorContainer;
+    }
+    interact(target , scale) {
+        const me = this;
+        const process = Process.default;
+        const _scale = scale;
+        interact(target).styleCursor(false)
+        interact(target).draggable({
+/* 
+            inertia: true,
+            modifiers: [
+                interact.modifiers.restrictRect({
+                    restriction: 'parent',
+                    endOnly: true
+                }),
+            ],
+*/
+
+            listeners: {
+
+                start(event) {
+                  event.target.classList.add('dragging');
+                },
+
+                move(event) {
+                    const renderRate = process.renderRate;
+                    var target = event.target;
+
+                    // 移動量 や位置を ScratchX, ScratchY に変換し
+                    // data-x, data-y へ保存
+                    // 使うときには、表示率を使って 実際の大きさへ直して使う！
+                    // うまくうごかない！！
+                    const scratchX = (parseFloat(target.getAttribute('scratch-x')) || 0);
+                    const scratchY = (parseFloat(target.getAttribute('scratch-y')) || 0);
+                    const actualPosition = process.toActualPosition(scratchX, scratchY);
+
+                    actualPosition.x += event.dx;
+                    actualPosition.y += event.dy;
+
+                    target.style.left = `${actualPosition.x}px`;
+                    target.style.top = `${actualPosition.y}px`;
+
+                    const dScratchPosition = process.toScratchPosition(  actualPosition.x, actualPosition.y );
+                    target.setAttribute('scratch-x', dScratchPosition.x);
+                    target.setAttribute('scratch-y', dScratchPosition.y);
+
+                    /* transform　Scale 変わらないので 設定不要だと思う。
+                    const scale = me._scale; //(parseFloat(target.getAttribute('scratch-scale')) || 1);
+                    const actualScale = {x: scale /  renderRate.x , y: scale / renderRate.y };
+
+                    const scaleX = (parseFloat(target.getAttribute('scale-x')) || null);
+                    const scaleY = (parseFloat(target.getAttribute('scale-y')) || null);
+                    */
+                    me._balloonHTML( scratchX, scratchY );
+                },
+
+                end(event) {
+                    event.target.classList.remove('dragging');
+                    //console.log(`me.translateX= ${me.translateX}, me.translateY= ${me.translateX}`);
+
+                }
+
+            },
+        })         
+
+    }
+    _balloonHTML( target, x, y) {
+
+        const thisId = target.id;
+        const balloon = document.querySelectorAll(`#${thisId} .monitor_balloon`);
+
+        if( balloon && balloon.length>0) {
+           
+            const _balloon = balloon[0];
+            _balloon.innerHTML = `(${Math.ceil(x)}, ${Math.ceil(y)})`;
+        }
+
+    }
+
+    hide() {
+        this.stageMonitorContainer.style.display = 'none';
+    }
+    show() {
+        this.stageMonitorContainer.style.display = '';
+    }
+    get size() {
+        const rect = this.stageMonitorContainer.getBoundingClientRect();
+        const w = rect.width;
+        const h = rect.height;
+        return {w:w, h:h};
+    }
+    setPosition( position) {
+        this.x = position.x;
+        this.y = position.y;
+        const target = this.stageMonitorContainer;
+        target.setAttribute('scratch-x', this.x)
+        target.setAttribute('scratch-y', this.y)
+        this._balloonHTML( target, this.x, this.y);
+        this.resize();
+    }
+    resize(scaleChange) {
+        const target = this.stageMonitorContainer;
+        const process = Process.default;
+        const renderRate = process.getRenderRate();
+
+        const dataX = parseFloat(target.getAttribute('scratch-x')) || 0;
+        const dataY = parseFloat(target.getAttribute('scratch-y')) || 0;
+  
+        const dActualPosition = process.toActualPosition(dataX, dataY);
+        
+
+        const scaleX = this._scale / renderRate.x;
+        const scaleY = this._scale / renderRate.y;
+
+        const original_rect = this.original_rect;
+        const scaled_rect = {width: original_rect.width * scaleX, height: original_rect.height * scaleY };
+        const d = {x: (scaled_rect.width - original_rect.width) /2, y: (scaled_rect.height - original_rect.height) /2 }
+
+        if( scaleChange == undefined && d.x == 0 && d.y == 0 ) {
+            target.style.left = `${dActualPosition.x}px`;// (canvasClientRect.top+50) +"px";
+            target.style.top = `${dActualPosition.y}px` ;// (canvasClientRect.left+50) +"px";
+
+        }else{
+            target.style.top = `${dActualPosition.y + d.y}px` ;// (canvasClientRect.left+50) +"px";
+            target.style.left = `${dActualPosition.x + d.x}px`;// (canvasClientRect.top+50) +"px";
+            target.style.transform = `scale(${scaleX}, ${scaleY})`;
+
+        }
+
+
+/* 
+        if(scaleChange) {
+            const scaleX = this._scale / renderRate.x;
+            const scaleY = this._scale / renderRate.y;
+    
+            target.setAttribute('scale-x', scaleX)
+            target.setAttribute('scale-y', scaleY)
+            target.style.transform = `scale(${scaleX}, ${scaleY})`;
+        }else{
+            const _scaleX = parseFloat(target.getAttribute('scale-x')) || this._scale;
+            const _scaleY = parseFloat(target.getAttribute('scale-y')) || this._scale;
+            target.style.transform = `scale(${_scaleX}, ${_scaleY})`;
+        }
+*/  
+    }
+
+
+    set balloonText ( text ) {
+        this.balloon.innerHTML = text;
+    }
+    set label (_label) {
+        this._label = _label;
+        this.monitorLabel.innerHTML = `${this._label}`;
+    }
+    set maxSize (maxSize) {
+        this._maxSize =  maxSize;
+    }
+    set value(value) {
+        this._value = value;
+        const _maxSize = this._maxSize;
+        if(Utils.isNumber(this._value)) {
+            const str = String(this._value);
+            this.monitorValue.innerHTML = str.padStart(_maxSize, ' ');
+        }else{
+            this.monitorValue.innerHTML = this._value.padEnd(_maxSize, ' ');
+        }
+    }
+}
+
+module.exports = Monitor;
 
 /***/ })
 /******/ ]);
