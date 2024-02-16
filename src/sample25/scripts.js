@@ -18,6 +18,7 @@ P.preload = async function() {
     this.loadImage(`${HOST}/assets/cross1.svg`,'Cross01');
     this.loadImage(`${HOST}/assets/cross2.svg`,'Cross02');
     this.loadSound(`${HOST}/assets/Pew.wav`,'Pew');
+    this.loadSound(`${HOST}/assets/Boing.wav`,'Boing');
     this.loadSound(`${HOST}/assets/Loop01.mp3`,'Loop01');
 }
 
@@ -38,7 +39,9 @@ P.prepare = async function() {
     P.cross = new P.Sprite("Cross");
     P.cross.position.y = -P.stageHeight/2 * 0.6 
     P.cross.addImage( P.images.ShipWheel );
+    P.cross.addImage( P.images.Cross02 );
     P.cross.setScale(25,25);
+    P.cross.setVisible(false);
 
     P.monitors = new P.Monitors();
     P.monitors.add('POINT');
@@ -58,7 +61,9 @@ P.setting = async function() {
         this.addSound( P.sounds.Chill, { 'volume' : 20 } );
     });
     P.cross.whenRightNow(async function() {
+        this.setVisible(true);
         this.addSound( P.sounds.Pew, { 'volume' : 100 } );
+        this.switchCostume(P.images.ShipWheel.name)
     });
     P.stage.whenFlag(async function() {
         // ずっと繰り返す
@@ -74,6 +79,9 @@ P.setting = async function() {
         }
     });
 
+    P.enemy.whenRightNow(async function() {
+        this.addSound( P.sounds.Boing, { 'volume' : 100 } );
+    });
     P.enemy.whenFlag( async function(){
         this.setVisible(false); 
         for(;;){
@@ -124,6 +132,7 @@ P.setting = async function() {
                     let touching = this.getTouchingTarget(P.cross.clones);
                     if( touching.length>0) {
                         P.monitors.v.POINT.value += 1;
+                        this.soundPlay();
                         const me = this;
                         setTimeout(async function(){
                             for(const i in Array(20).fill()){
@@ -197,7 +206,8 @@ P.setting = async function() {
     });
     // クローンされたときの動作  
     P.cross.whenCloned(function(){
-        this.scale = {x:5, y:5};
+        this.switchCostume(P.images.Cross02.name)
+        this.scale = {x:15, y:15};
         this.setVisible(true);
         this.position.x = P.cross.position.x;
         this.direction = 0;
