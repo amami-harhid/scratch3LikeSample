@@ -90,8 +90,12 @@ P.setting = async function() {
         }    
     });
     P.enemy.whenFlag( async function(){
+        let counter = 0;
+        let waitTime = 100;
         for(;;){
-            await P.wait(1000);
+            counter += 1;
+            if(counter > 100) waitTime = 1000
+            await P.wait(waitTime);
             this.position.x = (Math.random() -0.5) * P.stageWidth*0.9;
             this.clone();
         }    
@@ -227,6 +231,7 @@ P.setting = async function() {
                 break;
             }
         }
+        //console.log('cross clone ',this)
     });
     // クローンされたときの動作  
     P.cross.whenCloned(function(){
@@ -239,5 +244,6 @@ P.setting = async function() {
                 break;
             }
         }
+        //console.log('cross clone ',this)
     });
 }
