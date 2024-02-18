@@ -58,7 +58,7 @@ P.prepare = async function() {
 P.setting = async function() {
 
     P.gameOver = function() {
-        if( P.monitors.v.TIMER.value > 99 ) {
+        if( P.monitors.v.TIMER.value > 49 ) {
             return true;
         }
         return false;
