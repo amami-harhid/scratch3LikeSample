@@ -57,6 +57,13 @@ P.prepare = async function() {
 
 P.setting = async function() {
 
+    P.gameOver = function() {
+        if( P.monitors.v.TIMER.value > 99 ) {
+            return true;
+        }
+        return false;
+    }
+
     P.stage.whenRightNow(async function() {
         this.addSound( P.sounds.Chill, { 'volume' : 20 } );
     });
@@ -69,6 +76,9 @@ P.setting = async function() {
         // ずっと繰り返す
         for(;;) {
             await this.startSoundUntilDone();
+            if(P.gameOver()){
+                break;
+            }
         }
     });
     P.stage.whenFlag(async function() {
@@ -76,6 +86,9 @@ P.setting = async function() {
         for(;;) {
             await P.wait(1000);
             P.monitors.v.TIMER.value += 1;
+            if(P.gameOver()){
+                break;
+            }
         }
     });
 
@@ -87,14 +100,18 @@ P.setting = async function() {
         for(;;){
             await P.wait(100);
             this.costumes.nextCostume();
+            if(P.gameOver()){
+                break;
+            }
         }    
     });
     P.enemy.whenFlag( async function(){
         let counter = 0;
-        let waitTime = 100;
+        let waitTime = 1000;
         for(;;){
-            counter += 1;
-            if(counter > 100) waitTime = 1000
+            if(P.gameOver()){
+                break;
+            }
             await P.wait(waitTime);
             this.position.x = (Math.random() -0.5) * P.stageWidth*0.9;
             this.clone();
@@ -105,6 +122,9 @@ P.setting = async function() {
         this.clearEffect();
         this.setVisible(true);
         for(;;) {
+            if(P.gameOver()){
+                break;
+            }
             if(!this.isAlive()) break;
             this.changeY(-2)
             if(this.position.y < -P.stageHeight/2 ) {
@@ -119,6 +139,9 @@ P.setting = async function() {
     });
     P.enemy.whenCloned(async function(){
         for(;;) {
+            if(P.gameOver()){
+                break;
+            }
             await P.wait(500);
             if(this.isAlive()){
                 this.costumes.nextCostume();
@@ -130,6 +153,9 @@ P.setting = async function() {
     P.enemy.whenCloned(async function(){
         try{
             for(;;) {
+                if(P.gameOver()){
+                    break;
+                }
                 if(!this.isAlive()) break;
                 if(P.cross.clones.length>0) {
                     // cross のクローンに衝突したら、消える。
@@ -167,6 +193,9 @@ P.setting = async function() {
     P.cross.whenFlag( async function() {
         // ずっと繰り返す
         for(;;) {
+            if(P.gameOver()){
+                break;
+            }
             this.direction += 5;
         }    
     });
@@ -174,6 +203,9 @@ P.setting = async function() {
         // ずっと繰り返す
         const step = 10
         for(;;) {
+            if(P.gameOver()){
+                break;
+            }
             // 右矢印キーがおされたとき
             if(P.getKeyIsDown('RightArrow')){
                 this.changeX(step)
@@ -190,6 +222,9 @@ P.setting = async function() {
     P.cross.whenFlag( async function() {
         // ずっと繰り返す
         for(;;) {
+            if(P.gameOver()){
+                break;
+            }
             // スペースキーが押されたとき
             // （他のキーが押されていてもOK）
             if(P.getKeyIsDown('Space')){
@@ -220,6 +255,9 @@ P.setting = async function() {
     P.cross.whenCloned(function(){
         const c = this; // <--- cross instance;
         for(;;) {
+            if(P.gameOver()){
+                break;
+            }
             if(!this.isAlive()){
                 break;
             }
@@ -237,6 +275,9 @@ P.setting = async function() {
     P.cross.whenCloned(function(){
         const c = this; // <--- cross instance;
         for(;;) {
+            if(P.gameOver()){
+                break;
+            }
             if(!this.isAlive()) break;
             this.turnRight(45);
             if(this.isTouchingEdge()){
@@ -244,6 +285,5 @@ P.setting = async function() {
                 break;
             }
         }
-        //console.log('cross clone ',this)
     });
 }
