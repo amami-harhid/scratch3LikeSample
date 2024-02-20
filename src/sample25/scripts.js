@@ -43,6 +43,9 @@ P.prepare = async function() {
     P.cross.setScale(25,25);
     P.cross.setVisible(false);
 
+    P.sound = new P.Sprite("Sound");
+
+
     P.monitors = new P.Monitors();
     P.monitors.add('POINT');
     P.monitors.add('TIMER');
@@ -72,6 +75,11 @@ P.setting = async function() {
         this.addSound( P.sounds.Pew, { 'volume' : 100 } );
         this.switchCostume(P.images.ShipWheel.name)
     });
+    P.sound.whenRightNow(function(){
+        this.addSound( P.sounds.Boing, { 'volume' : 100 } );
+  
+    });
+
     P.stage.whenFlag(async function() {
         // ずっと繰り返す
         for(;;) {
@@ -93,7 +101,7 @@ P.setting = async function() {
     });
 
     P.enemy.whenRightNow(async function() {
-        this.addSound( P.sounds.Boing, { 'volume' : 100 } );
+//        this.addSound( P.sounds.Boing, { 'volume' : 100 } );
     });
     P.enemy.whenFlag( async function(){
         this.setVisible(false); 
@@ -162,7 +170,8 @@ P.setting = async function() {
                     let touching = this.getTouchingTarget(P.cross.clones);
                     if( touching.length>0) {
                         P.monitors.v.POINT.value += 1;
-                        this.soundPlay();
+                        //this.soundPlay();
+                        P.sound.soundPlay();
                         const me = this;
                         setTimeout(async function(){
                             for(const i in Array(20).fill()){
