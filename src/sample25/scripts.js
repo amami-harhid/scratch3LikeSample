@@ -19,7 +19,7 @@ P.preload = async function() {
     this.loadImage(`${HOST}/assets/cross2.svg`,'Cross02');
     this.loadSound(`${HOST}/assets/Pew.wav`,'Pew');
     this.loadSound(`${HOST}/assets/Boing.wav`,'Boing');
-    this.loadSound(`${HOST}/assets/Loop01.mp3`,'Loop01');
+//    this.loadSound(`${HOST}/assets/Loop01.mp3`,'Loop01');
 }
 
 P.prepare = async function() {
