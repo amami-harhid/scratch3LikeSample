@@ -21732,12 +21732,9 @@ const Entity = class extends EventEmitter{
         this.soundStop();    
         this.sounds.nextSound();
     }
-    soundPlay(sound) {
+     soundPlay(sound) {
         if ( this.sounds == undefined ) return;
-        if( sound ) {
-            const name = sound.name;
-            this.soundSwitch(name);
-        } 
+        this.soundSwitch(sound);
         this.sounds.play();
     }
     setSoundVolume(volume) {

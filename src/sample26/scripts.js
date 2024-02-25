@@ -133,19 +133,27 @@ P.setting = async function() {
 
     P.button3b.whenBroadcastReceived("GameStart", async function(){
         this.position.y = 105;
+        let color = 0
+        this._effect.color = 0
+//        console.log('this._effect', this._effect);
         for(let idx in Array(4).fill()){
             this.position.x = -225;
             for(let idx2 in Array(12).fill()){
-                this.clone();
+                this.clone({effect: {"color" : color}}  );
+//                this.setEffectsEachProperties({"color" : color});
                 this.changeX(39)
             }
             this.changeY(25)
-            this.effect.color += 37.5;
+            color += 37.5
+//            console.log('this.effect.color(1)',this.effect.color)
+//            this.effect.color += 37.5;
+//            console.log('this.effect.color(2)',this.effect.color)
         }
         this.broadcast("ButtonSetComplete");   
 
     });
     P.button3b.whenCloned(async function(){
+//        console.log('this._effect', this._effect);
         this.setVisible(true);
         for(;;) {
             let touching = this.getTouchingTarget([P.ball]);
@@ -170,8 +178,12 @@ P.setting = async function() {
 
     P.ball.whenBroadcastReceived("PaddleTouch", async function(){
         this.soundPlay(P.sounds.Jump);
+//        this.soundSwitch(P.sounds.Jump)
+//        this.sounds.play();
         this.changeY(15)
-        if( this.direction > 0 ) {
+//        let _direction = P.direction(this.direction);
+        let _direction = this.direction;
+        if( _direction > 0 ) {
             // 20 ～ 70
             this.pointInDerection( P.random(20,70) )
         }else{
@@ -182,11 +194,15 @@ P.setting = async function() {
     });
     P.ball.whenBroadcastReceived("ButtonTouch", async function(){
         this.soundPlay(P.sounds.Jump);
-        this.changeY(15)
-        if( this.direction > 0 ) {
-            this.pointInDerection( 180 - this.direction )
+        P.monitors.v.POINT.value += 1;
+//        this.changeY(15)
+//        console.log('this.direction=',this.direction)
+//        let _direction = P.direction(this.direction);
+        let _direction = this.direction;
+        if( _direction > 0 ) {
+            this.pointInDerection( 180 - _direction )
         }else{
-            this.pointInDerection( -180 - this.direction )
+            this.pointInDerection( -(180 + _direction) )
         }
 
     });
@@ -212,5 +228,23 @@ P.setting = async function() {
 
     P.random = function(start, last) {
         return start + Math.random() * (last-start);
+    }
+    P.direction = function(direction) {
+        let _direction = direction % 360;
+        if( _direction > 0 ) {
+            if( _direction > 180 ) {
+                return _direction - 360;
+            }else{
+                return _direction;
+            }
+        }else{
+            if( _direction < -180 ) {
+                return _direction + 360;
+            }else{
+                return _direction;
+            }
+
+        }
+
     }
 }
