@@ -18847,6 +18847,9 @@ class Keyboard {
                 key : e.key,
             };
             me.postData(data);
+            if( data.key == ' ') {
+                return false;
+            }
         })
         document.addEventListener('keyup', e => {
             const data = {
@@ -18854,7 +18857,10 @@ class Keyboard {
                 key : e.key,
             };
             me.postData(data);
-        });
+            if( data.key == ' ') {
+                return false;
+            }
+        })
     }
 
     /**
