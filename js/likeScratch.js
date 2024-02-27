@@ -18865,6 +18865,7 @@ class Keyboard {
     _keyStringToScratchKey (keyString) {
         keyString = Cast.toString(keyString);
         // Convert space and arrow keys to their Scratch key names.
+        console.log('keyString', keyString);
         switch (keyString) {
         case ' ': return KEY_NAME.SPACE;
         case 'ArrowLeft':return KEY_NAME.LEFT;
@@ -21734,7 +21735,9 @@ const Entity = class extends EventEmitter{
     }
      soundPlay(sound) {
         if ( this.sounds == undefined ) return;
-        this.soundSwitch(sound);
+        if( sound ) {
+            this.soundSwitch(sound);
+        }
         this.sounds.play();
     }
     setSoundVolume(volume) {
